@@ -10,5 +10,4 @@ export class Producto {
 
   @Column()
   price: number;
-
 }
