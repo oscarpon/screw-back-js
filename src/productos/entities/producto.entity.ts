@@ -10,4 +10,7 @@ export class Producto {
 
   @Column()
   price: number;
+
+  @Column({nullable: true})
+  company: number;
 }

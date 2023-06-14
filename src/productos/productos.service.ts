@@ -7,8 +7,9 @@ import { DeepPartial, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductosService {
-
-  constructor(@InjectRepository(Producto) private productRepository: Repository<Producto>){}
+  constructor(
+    @InjectRepository(Producto) private productRepository: Repository<Producto>,
+  ) {}
 
   async create(createProductoDto: CreateProductoDto): Promise<Producto> {
     const producto: DeepPartial<Producto> = {
@@ -22,14 +23,14 @@ export class ProductosService {
   }
 
   async findOne(id: number): Promise<Producto> {
-    return this.productRepository.findOne({where: {id}});
+    return this.productRepository.findOne({ where: { id } });
   }
 
   async update(
     id: number,
     updateProductoDto: UpdateProductoDto,
   ): Promise<Producto> {
-    const producto = await this.productRepository.findOne({where: {id}});
+    const producto = await this.productRepository.findOne({ where: { id } });
     if (!producto) {
       throw new Error(`Producto with ID ${id} not found`);
     }
@@ -39,7 +40,7 @@ export class ProductosService {
   }
 
   async remove(id: number): Promise<void> {
-    const producto = await this.productRepository.findOne({where: {id}});
+    const producto = await this.productRepository.findOne({ where: { id } });
     if (!producto) {
       throw new Error(`Producto with ID ${id} not found`);
     }
