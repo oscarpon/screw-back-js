@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { ProductosModule } from './productos/productos.module';
+import { Producto } from './productos/entities/producto.entity';
 
 @Module({
   imports: [
@@ -11,12 +13,15 @@ import { ConfigModule } from '@nestjs/config';
       type: 'postgres',
       host: '139.144.51.51',
       port: 9000,
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      entities: [],
+      username: process.env.TYPEORM_USERNAME,
+      password: process.env.TYPEORM_PASSWORD,
+      database: process.env.TYPEORM_DATABASE,
+      entities: [Producto],
       synchronize: true,
+      migrations: ['dist/**/migrations/*.js'],
+      migrationsTableName: 'history',
     }),
+    ProductosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
